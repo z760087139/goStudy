@@ -127,6 +127,25 @@ func f3() {
 	fmt.Println(x, y)
 }
 
+// GO 语言里面，所有的赋值操作，其实都是copy，copy的内容包括指针
+// 不同的数据类型，在copy的过程中，实际上的内容也不一样，现在只作了解即可，在了解所有数据类型之后，会做一个专门的讲解
+// type		syntactic sugar for
+// array	the array
+// string	struct holding len + a pointer to the backing array
+// slice	struct holding len, cap + a pointer to the backing array
+// map		pointer to a struct
+// channel	pointer to a struct
+
+// 关于赋值操作的例子
+func f4() {
+	a, b, c, d, e := 1, 2, 3, 4, 5
+	fmt.Printf("%p,%p,%p,%p,%p\n", &a, &b, &c, &d, &e)
+	s := [5]int{a, b, c, d, e}
+	for _, v := range s {
+		fmt.Printf("%p\n", &v)
+	}
+}
+
 func main() {
-	f2()
+	f4()
 }

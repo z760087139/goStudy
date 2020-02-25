@@ -6,4 +6,9 @@ import (
 
 func Jszc() {
 	fmt.Println("this is class2")
+	jszc()
+}
+
+func jszc() {
+	fmt.Println("lower")
 }
