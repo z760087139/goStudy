@@ -220,8 +220,17 @@ func f10() {
 	// 和make 函数类似
 	// new 函数同样用于初始化，但内容不限制类型，返回的内容为指针类型
 	// new 是对传入的类型分配空间并返回对应的内存地址指针
+	n1 := new(int)
+	fmt.Printf("%p", n1)
+	fmt.Println()
+	// 等价于
+
+	var v int
+	n2 := &v
+	fmt.Printf("%p", n2)
+
 }
 
 func main() {
-	f5()
+	f10()
 }
