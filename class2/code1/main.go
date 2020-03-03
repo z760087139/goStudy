@@ -138,11 +138,14 @@ func f3() {
 
 // 关于赋值操作的例子
 func f4() {
-	a, b, c, d, e := 1, 2, 3, 4, 5
-	fmt.Printf("%p,%p,%p,%p,%p\n", &a, &b, &c, &d, &e)
-	s := [5]int{a, b, c, d, e}
+	s := [5]int{1, 2, 3, 4, 5}
 	for _, v := range s {
-		fmt.Printf("%p\n", &v)
+		fmt.Printf("%p\t", &v)
+	}
+	fmt.Println()
+
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("%p\t", &s[i])
 	}
 }
 

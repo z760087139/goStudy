@@ -1,0 +1,2 @@
+code1 
+数组、切片、make、new函数

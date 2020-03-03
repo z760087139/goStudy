@@ -84,6 +84,10 @@ func f5() {
 	fmt.Println(imag(y))
 }
 
+// 布尔值
+// go 语言的布尔值只有true 和 false。0,1 不能当做布尔值使用
+
+
 func main() {
 	f5()
 }
