@@ -149,6 +149,8 @@ func f4() {
 	}
 }
 
+
+// https://github.com/golang/go/wiki/CommonMistakes#using-goroutines-on-loop-iterator-variables
 func f5(){
 	s := [10]int{1,2,3,4,5,6,7,8,9,10}
 	var wg sync.WaitGroup
@@ -161,6 +163,8 @@ func f5(){
 	}
 	wg.Wait()
 }
+
+
 
 func main() {
 	f5()
