@@ -46,6 +46,7 @@ func f2() {
 		y := x + i
 		fmt.Println(y)
 	}
+	fmt.Println(x)
 	// fmt.Println(y) // 无法执行，未定义y
 }
 

@@ -2,6 +2,7 @@
 package main
 
 import "fmt"
+import "sync"
 
 // 内容：声明定义及指针基础
 
@@ -48,6 +49,7 @@ var a1 string
 var (
 	b1 string
 	b2 string
+	e1,e2,e3 int
 	// 多个重复类型的变量
 	c1, c2, c3 string = "c1", "c2", "c3"
 	// 声明推导
@@ -57,7 +59,7 @@ var (
 // 声明例子
 func f1() {
 	// 打印类型和变量值，关于fmt的打印格式会在后面章节具体讲解，这里不作详细描述
-	fmt.Printf("type:%T,value:%v", d1, d1)
+	fmt.Printf("type:%T,value:%v\n", d1, d1)
 	// 如果是一些需要进行传递的变量类型，个人不建议用声明推导方式创建
 	// 因为在传递的时候有部分函数会要求指定的变量类型，int 不能传递给int64 int32
 
@@ -113,7 +115,6 @@ func f2() {
 	p2 := new(int)
 	fmt.Println(p2)
 	fmt.Println(*p2)
-
 }
 
 // 赋值内容
@@ -143,12 +144,30 @@ func f4() {
 		fmt.Printf("%p\t", &v)
 	}
 	fmt.Println()
-
 	for i := 0; i < len(s); i++ {
 		fmt.Printf("%p\t", &s[i])
 	}
 }
 
+type myInt int
+
+func (self myInt) p(){
+	fmt.Println(self)
+}
+
+func f5(){
+	s := [10]myInt{1,2,3,4,5,6,7,8,9,10}
+	var wg sync.WaitGroup
+	for _,v := range s{
+		wg.Add(1)
+		go func(){
+			v.p()
+			wg.Done()
+		}()
+	}
+	wg.Wait()
+}
+
 func main() {
-	f4()
+	f5()
 }
