@@ -149,19 +149,13 @@ func f4() {
 	}
 }
 
-type myInt int
-
-func (self myInt) p(){
-	fmt.Println(self)
-}
-
 func f5(){
-	s := [10]myInt{1,2,3,4,5,6,7,8,9,10}
+	s := [10]int{1,2,3,4,5,6,7,8,9,10}
 	var wg sync.WaitGroup
-	for _,v := range s{
+	for _,v := range s {
 		wg.Add(1)
 		go func(){
-			v.p()
+			fmt.Println(v)
 			wg.Done()
 		}()
 	}
