@@ -2,20 +2,38 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	gbk "golang.org/x/text/encoding/simplifiedchinese"
 )
 
 // 内容：字符串
 
 // https://books.studygolang.com/gopl-zh/ch3/ch3-05.html
+// https://blog.golang.org/strings go官网博客讲解
 
-// 字符串是一个不可改变的字节序列
-// 字符串必须是用双引号或者是反引号扩起
-// 文本字符串通常被解释为采用UTF8编码的Unicode码点（rune）序列
-// 字符串可以用s[n]进行索引
+// 表示字符串的方式一般有 strign []rune []byte三种形式
+
+// 关于 string
+// string是一个不可改变的字节序列，可以理解为一个只读的[]byte（基本等效）
+// string必须是用双引号或者是反引号扩起
+// 文本字符串通常被解释为采用UTF8编码的Unicode码点序列
+// string可以用s[n]进行索引
+
+// 拓展内容
+// 回复上节课提到的列表能存储多长的字符串
+// 实际上 go语言的字符串是由结构体组成
+// https://chai2010.gitbooks.io/advanced-go-programming-book/content/ch1-basic/ch1-03-array-string-and-slice.html
+// type StringHeader struct {
+//     Data uintptr
+//     Len  int
+// }
+// uintptr is an integer type that is large enough to hold the bit pattern of
+// any pointer.
 
 // 关于字符串长度判断（中文、英文）
 func f1() {
@@ -37,10 +55,8 @@ func f2() {
 }
 
 // 遍历字符串的问题
-// go 语言默认编码是utf8，字符串是由ascii和rune组成（非ascii能表示的，以utf-8存储的内容）
-// rune 组成的字节数根据实际情况存在不同的长度
-// 但是字符串len(s)表示的长度为字节长度
-// go 语言里面 for range 循环会对rune 进行隐式读取，不用担心循环读取问题
+// 字符串len(s)表示的长度为字节长度 （不是字符）
+// go 语言里面 for range 循环会对多字节组成的字符进行隐式读取，不用担心循环读取问题
 func f3() {
 	s1 := "hello,世界"
 	for i, s := range s1 {
@@ -78,6 +94,25 @@ func f6() {
 
 }
 
+// []rune
+// 从string 内容可以发现，由于go语言使用utf-8编码方式
+// 对于unicode码点，可能需要使用两个以上的字节存储
+// 对string进行打印时，需要对string内容进行字节内容判断
+// 所以go语言里面还有一种扩展的字符形式 rune
+
+// rune 其实是一个int32的数据类型，用于存储unicode的码点
+
+// []byte
+// 用切片形式存储的字符串，由于是切片类型，所以在修改的时候比起string更方便
+// 存储的内容只能是字节
+func f9() {
+	a := "世界"
+	b := []byte("世界")
+	fmt.Println(b)
+	fmt.Printf("% x\n", b)
+	fmt.Printf("% x\n", a)
+}
+
 // 关于常量
 // 常量表达式的值在编译期计算，而不是在运行期。每种常量的潜在类型都是基础类型：boolean、string或数字。
 // 常量的值不可修改，
@@ -107,5 +142,22 @@ func f7() {
 }
 
 func main() {
-	f7()
+	f9()
+}
+
+// 拓展内容
+// 如果需要对字符串内容进行转码，需要使用额外的转码包
+// 比如转成GBK
+// import "golang.org/x/text/encoding"
+// import "golang.org/x/text/encoding/simplifiedchinese"
+// 也有另外一种方式
+// https://pkg.go.dev/golang.org/x/text/transform?tab=doc
+
+func f8() {
+	gbkEncoder := gbk.GBK.NewEncoder()
+	newString, _ := gbkEncoder.String("世界")
+	for i, v := range newString {
+		log.Printf("%d\t%q\t%d\n", i, v, v)
+		log.Printf("%d\t%q\t%d\n", i, newString[i], newString[i])
+	}
 }
