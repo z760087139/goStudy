@@ -16,6 +16,7 @@ import (
 // 例如，int8类型整数的值域是从-128到127，而uint8类型整数的值域是从0到255。
 
 // 下面是Go语言中关于算术运算、逻辑运算和比较运算的二元运算符，它们按照优先级递减的顺序排列：
+// https://books.studygolang.com/gopl-zh/ch3/ch3-01.html
 
 // *      /      %      <<       >>     &       &^
 // +      -      |      ^
@@ -42,7 +43,6 @@ func f2() {
 	var a int8 = 1 << 6
 	fmt.Printf("%08b\n", a)
 	fmt.Printf("%08b", a<<1)
-
 }
 
 // go 语言里面 float 使用标准的IEEE754表示浮点数 会存在不准确的情况
@@ -86,7 +86,6 @@ func f5() {
 
 // 布尔值
 // go 语言的布尔值只有true 和 false。0,1 不能当做布尔值使用
-
 
 func main() {
 	f5()

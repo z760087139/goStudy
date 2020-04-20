@@ -16,7 +16,7 @@ import (
 // https://books.studygolang.com/gopl-zh/ch3/ch3-05.html
 // https://blog.golang.org/strings go官网博客讲解
 
-// 表示字符串的方式一般有 strign []rune []byte三种形式
+// 表示字符串的方式一般有 string []rune []byte 三种形式
 
 // 关于 string
 // string是一个不可改变的字节序列，可以理解为一个只读的[]byte（基本等效）
@@ -40,7 +40,7 @@ func f1() {
 	s1 := "string"
 	s2 := "中文"
 	fmt.Println(len(s1))
-	fmt.Printf("%T,%v", s2, len(s2))
+	fmt.Printf("%T,%v\n", s2, len(s2))
 	// 第i个字节并不一定是字符串的第i个字符，因为对于非ASCII字符的UTF8编码会要两个或多个字节
 	fmt.Println(s2[2])
 }
@@ -142,7 +142,7 @@ func f7() {
 }
 
 func main() {
-	f9()
+	f8()
 }
 
 // 拓展内容
