@@ -31,7 +31,9 @@ func f1() {
 
 	// 普通定义及赋值形式 相当于a1 步骤的拆分
 	var a3 [3]bool
-	a3 = [3]bool{true, false, false}
+	a3 = [3]bool{true, false}
+
+	a6 := [3]map[string]int{map[string]int{"a": 1}}
 
 	// 如果列表的长度需要根据内容来决定
 	a4 := [...]int{1, 2, 3, 4} //长度为4，且列表顺序会按照内容排序。
@@ -44,6 +46,7 @@ func f1() {
 	fmt.Printf("%[1]T,%[1]v,%[2]p\n", a3, &a3)
 	fmt.Printf("%[1]T,%[1]v,%[2]p\n", a4, &a4)
 	fmt.Printf("%[1]T,%[1]v,%[2]p\n", a5, &a5)
+	fmt.Printf("%[1]T,%[1]v,%[2]p\n", a6, &a6)
 
 }
 
@@ -101,24 +104,24 @@ func f5() {
 
 	// 源数组内容指针
 	// 打印源数组各个值的地址
-	f6(a2)
+	f6(&a2)
 
 	// 获取a1的完整内容，但是数据类型是一个切片
 	// si1 := a2[:]
 	// 打印切片内容
-	// f7(si1)
+	// f7(si1, "")
 
 	// 如果是一个片段的切片内容,有头无尾
 	// si2 := a2[7:]
-	// f7(si2)
+	// f7(si2, "")
 
 	// 无头有尾，注意长度和容量
-	si3 := a2[:7]
-	f7(si3, "")
+	// si3 := a2[:7]
+	// f7(si3, "")
 	// f7(si3[:], "")
 	// 有头有尾，注意长度和容量
-	// si4 := a2[2:7]
-	// f7(si4)
+	si4 := a2[2:7]
+	f7(si4, "")
 
 	// 如果循环打印切片长度以外的数据（容量以内）会报错
 	// for i := 0; i < cap(si4); i++ {
@@ -128,7 +131,7 @@ func f5() {
 
 }
 
-func f6(a2 [10]int) {
+func f6(a2 *[10]int) {
 	fmt.Println(strings.Repeat("-", 80))
 	fmt.Print("源数组内容指针:\t")
 	for i := 0; i < len(a2); i++ {
@@ -183,7 +186,7 @@ func f8() {
 	// 注意内存地址
 	f7(s, "append一个元素后的切片")
 	// 打印原内容
-	f6(a2)
+	f6(&a2)
 
 	// 如果重新赋值一个变量，留意内存地址是否发生变化
 	ns := append(s, 12)
@@ -227,6 +230,10 @@ func f10() {
 
 	var v int
 	n2 := &v
+	// var v int
+	var n3 *int
+	n3 = &v
+	fmt.Printf("%p", n3)
 	fmt.Printf("%p", n2)
 
 }
