@@ -33,11 +33,11 @@ func f1() {
 	b.name = "b"
 	// 按顺序初始化 、 用名字和值初始化 两种方式
 	b.friends = []Person{
-		Person{
+		{
 			name: "b",
 			age:  1,
 		},
-		Person{
+		{
 			"S",
 			2,
 			nil,
@@ -113,5 +113,5 @@ func f5() {
 }
 
 func main() {
-	f4()
+	f1()
 }
