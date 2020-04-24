@@ -58,6 +58,33 @@ func f5(x int) {
 	f5(x - 1)
 }
 
+// 重点
+// 匿名函数
+// go 语言里面，func 是一个第一类值，就行相当于普通的int,map，可以被赋值给变量
+// go 语言的func 内部不能创建新的func，但是可以通过上面提到的特性，在函数内部将新的函数赋值给变量，形成在函数内部创建函数
+// 由于这种方式创建的函数没有对应的名字，一般称为匿名函数
+func nameless() func(int, string) {
+	// func inner (){}  // illegal
+	sum := 0
+	sumFunc := func(a int, content string) {
+		localTotal := 10
+		sum += a
+		localTotal += a
+		fmt.Printf("%-20s: global : %v, local: %v\n", content, sum, localTotal)
+	}
+	sumFunc(2, "func in nameless")
+	return sumFunc
+}
+
+func namelessTest() {
+	f1 := nameless()
+	f2 := nameless()
+	b := 2
+	f1(b, "f1 first time ")
+	f1(b, "f1 second time ")
+	f2(b, "f2 first time ")
+}
+
 // 错误接收及一般处理策略
 // GO语言里面没有像其他语言一样的异常处理机制，比如python 里面的try except。
 // 所有的已知错误都需要通过error进行传递，发生未知错误时使用panic
@@ -112,10 +139,14 @@ func f8(filename string) ([]byte, error) {
 
 func main() {
 	// f1(1, 2, 3, 4, 5, 6)
+
 	// fmt.Println(f4(true))
 	// fmt.Println(f4(false))
-	_, err := f8("error.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
+
+	// _, err := f8("error.txt")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+
+	namelessTest()
 }
