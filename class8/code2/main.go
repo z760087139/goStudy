@@ -46,6 +46,25 @@ func f3() {
 	f1(&m)
 }
 
+// 断言
+// 由于使用接口对象实际的类型变成任意形式，在需要确认对象类型时候可以使用断言进行判断
+func f4(p types.Person) {
+	// switch 断言方式
+	switch t := p.(type) {
+	case types.Student:
+		t.Talk()
+	default:
+		t.Eat()
+	}
+
+	// 另一种断言方式
+	t, ok := p.(types.Student)
+	if ok {
+		t.Talk()
+	}
+
+}
+
 func main() {
 	f2()
 }
